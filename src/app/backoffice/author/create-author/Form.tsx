@@ -15,8 +15,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { create, createAuthor } from "@/app/action";
+import { createAuthor } from "@/app/action";
 import { useRouter } from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -43,7 +44,7 @@ export function AuthorForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     createAuthor(values);
-    console.log("values.name", values.name);
+    router.replace("/backoffice/author")
     router.refresh();
   }
 
@@ -84,7 +85,7 @@ export function AuthorForm() {
             <FormItem>
               <FormLabel>Bio Graphy</FormLabel>
               <FormControl>
-                <Input placeholder="bio-graphy" {...field} />
+                <Textarea  placeholder="bio-graphy" {...field} />
               </FormControl>
 
               <FormMessage />

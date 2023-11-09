@@ -6,9 +6,9 @@ export default function BackofficeLayout({children}: {children: React.ReactNode}
   return (
     <section className='flex min-h-screen items-center justify-center gap-10'>
         <BackOfficeSideBar />
-        <Card className=' w-[800px]' >
+        <div className=' w-[800px]' >
         {children}
-        </Card>
+        </div>
     </section>
   )
 }

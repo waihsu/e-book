@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import Autocomplete from '@mui/material/Autocomplete';
+import Autocomplete from "@mui/material/Autocomplete";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -24,9 +24,16 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
 import { createBook } from "@/app/action";
-import { Author } from "@prisma/client";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Author, Categories } from "@prisma/client";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { TextField } from "@mui/material";
+import { Card } from "@/components/ui/card";
 
 interface newBook {
   title: string;
@@ -38,7 +45,13 @@ interface newBook {
   categories_id: number;
 }
 
-export function BookForm({authors}: {authors: Author[]}) {
+export function BookForm({
+  authors,
+  categories,
+}: {
+  authors: Author[];
+  categories: Categories[];
+}) {
   const router = useRouter();
 
   const [book, setBook] = useState({
@@ -48,9 +61,9 @@ export function BookForm({authors}: {authors: Author[]}) {
     price: "",
     is_premium: false,
     author_id: "",
-    categories_id: "",
+    categories_id: [] as number[],
   });
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const [bookImg, setBookImg] = useState<File[]>([]);
   const [bookFile, setBookFile] = useState<File[]>([]);
   const [is_premium, setIsPremium] = useState(false);
@@ -76,50 +89,95 @@ export function BookForm({authors}: {authors: Author[]}) {
   async function onSubmit() {
     const bookImgUrl = await uploadBookImage(bookImg);
     const bookFileUrl = await uploadBookFile(bookFile);
-    if (!bookImgUrl || !bookFileUrl) return alert("all fields must be fill")
-   if (bookImgUrl && bookFileUrl) {
-    book.asset_url = bookImgUrl as string;
-    book.book_url = bookFileUrl as string;
-    book.is_premium = is_premium;
-    // createBook(book)
-   console.log(book)
-    router.refresh();
-   }
+    if (!bookImgUrl || !bookFileUrl) return alert("all fields must be fill");
+    if (bookImgUrl && bookFileUrl) {
+      book.asset_url = bookImgUrl as string;
+      book.book_url = bookFileUrl as string;
+      book.is_premium = is_premium;
+       const data = await createBook(book)
+       router.replace("/backoffice/books")
+      router.refresh();
+    }
   }
 
   return (
-    <form action={onSubmit} className="space-y-6">
-     
-     <Autocomplete
-      
-      id="combo-box-demo"
-      options={authors}
-      sx={{ width: 300 }}
-      onChange={(option,value) => setBook({...book,author_id: String(value?.id )})}
-      getOptionLabel={(option) => option.name}
-      // renderOption={(props, option) => (
-      //   <div key={option.id}>
-      //       <p>{option.name}</p>
-      //   </div>
-      // )}
-      renderInput={(params) => (
-
-        <TextField
-          {...params}
-          id="author"
+    <Card className="p-4">
+      <form action={onSubmit} className="space-y-4">
+      <div>
+        <Label>Select Categories</Label>
+        <Autocomplete
+          multiple
+          id="tags-standard"
+          options={categories}
+          getOptionLabel={(option) => option.name}
+          onChange={(option, value) =>
+            setBook({ ...book, categories_id: value.map((item) => item.id) })
+          }
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.id}>
+                {option.name}
+              </li>
+            );
+          }}
+          renderInput={(params) => (
+            <TextField
+              key={params.inputProps.id}
+              {...params}
+              id="categories"
+              variant="standard"
+              // label="Multiple values"
+              placeholder="Categories"
+            />
+          )}
         />
-      )}
-      
-    />
+      </div>
 
-     
+      <div>
+        <Label>Select Author</Label>
+        <Autocomplete
+          id="combo-box-demo"
+          options={authors}
+          sx={{ width: 300 }}
+          onChange={(option, value) =>
+            setBook({ ...book, author_id: String(value?.id) })
+          }
+          getOptionLabel={(option) => option.name}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.id}>
+                {option.name}
+              </li>
+            );
+          }}
+          renderInput={(params) => (
+            <TextField
+              key={params.inputProps.id}
+              {...params}
+              id="Author"
+              variant="standard"
+              // label="Multiple values"
+              placeholder="Author"
+            />
+          )}
+        />
+      </div>
+
       <div>
         <Label>Title</Label>
-        <Input placeholder="Title" type="text" />
+        <Input
+          placeholder="Title"
+          type="text"
+          onChange={(e) => setBook({ ...book, title: e.target.value })}
+        />
       </div>
       <div>
         <Label>Price</Label>
-        <Input placeholder="Price" type="text" />
+        <Input
+          placeholder="Price"
+          type="text"
+          onChange={(e) => setBook({ ...book, price: e.target.value })}
+        />
       </div>
       <div>
         <Label>Is Premium</Label>
@@ -145,5 +203,6 @@ export function BookForm({authors}: {authors: Author[]}) {
       </div>
       <Button type="submit">Create</Button>
     </form>
+    </Card>
   );
 }

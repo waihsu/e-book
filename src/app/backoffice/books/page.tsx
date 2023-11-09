@@ -1,16 +1,28 @@
 import React from 'react'
-import { BookForm } from './Form'
+import { BookForm } from './create-book/Form'
 import { prisma } from '@/libs/prisma'
+import { Card, CardContent } from '@/components/ui/card'
+import BackofficeLayout from '@/components/BackofficeLayout'
+import Link from 'next/link'
 
 export default async function page() {
 
-  const authors = await prisma.author.findMany()
+  const books = await prisma.books.findMany()
 
   return (
-    <div>
-      <div>
-        <BookForm authors={authors} />
+    <BackofficeLayout title='Books' link='/backoffice/books/create-book' button='Create Book'>
+      <div className="py-6">
+        <Card className="max-h-[400px] scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-100 overflow-scroll overflow-x-hidden flex flex-wrap justify-center items-center gap-10 py-10">
+          {books.map((item) => (
+            <Link key={item.id} href={`/backoffice/books/${item.id}`}>
+            <Card
+              className="flex justify-center items-center w-32 h-32">
+              <CardContent>{item.title}</CardContent>
+            </Card>
+            </Link>
+          ))}
+        </Card>
       </div>
-    </div>
+    </BackofficeLayout>
   )
 }

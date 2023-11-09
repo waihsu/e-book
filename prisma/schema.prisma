@@ -11,37 +11,58 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement()) 
-  email String  @unique
-  name  String?
-  role  UserRole  @default(USER)
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  role      UserRole @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Author {
-  id  Int     @id @default(autoincrement())
-  name    String  
+  id            Int      @id @default(autoincrement())
+  name          String
   date_of_birth String
   bio_graphy    String
-  Books     Books[]
+  is_archived   Boolean  @default(false)
+  Books         Books[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Categories {
-  id    Int   @id @default(autoincrement())
-  name  String
-  Books Books[]
+  id               Int                @id @default(autoincrement())
+  name             String
+  is_archived      Boolean            @default(false)
+  Categories_Books Categories_Books[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
 
 model Books {
-  id        Int   @id  @default(autoincrement())
-  title     String
-  asset_url String
-  book_url  String
-  price     String
-  is_premium  Boolean
-  author_id   Int
+  id               Int                @id @default(autoincrement())
+  title            String
+  asset_url        String
+  book_url         String
+  price            String
+  is_premium       Boolean
+  author_id        Int
+  is_archived      Boolean            @default(false)
+  author           Author             @relation(fields: [author_id], references: [id])
+  Categories_Books Categories_Books[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model Categories_Books {
+  id            Int        @id @default(autoincrement())
   categories_id Int
-  author    Author    @relation(fields: [author_id],references: [id])
-  categories  Categories  @relation(fields: [categories_id], references: [id])
+  books_id      Int
+  is_archived      Boolean            @default(false)
+  categories    Categories @relation(fields: [categories_id], references: [id])
+  books         Books      @relation(fields: [books_id], references: [id])
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 }
 
 enum UserRole {

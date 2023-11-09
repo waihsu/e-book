@@ -15,8 +15,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { create } from "@/app/action"
+
 import { useRouter } from 'next/navigation'
+import { createCategory } from "@/app/action"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -37,8 +38,8 @@ export function CategoriesForm() {
     function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        create(values.name)
-        console.log(values)
+        createCategory(values.name)
+        router.replace("/backoffice/categories")
         router.refresh()
       }
 
@@ -50,13 +51,10 @@ export function CategoriesForm() {
           name="name"
           render={({ field }: {field: any}) => (
             <FormItem>
-              <FormLabel>New Category</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="name" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
