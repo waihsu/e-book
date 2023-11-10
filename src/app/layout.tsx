@@ -19,7 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className="bg-[#2D2D33]"
+        className="bg-[#2D2D33] scrollbar-thin"
       >
         <ThemeProvider
         attribute="class"

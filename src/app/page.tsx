@@ -1,6 +1,6 @@
-
 import { prisma } from "@/libs/prisma";
 import BookSlider from "@/components/BookSlider";
+import Link from "next/link";
 
 export default async function Home() {
   const authors = await prisma.author.findMany();
@@ -36,17 +36,53 @@ export default async function Home() {
       </div>
 
       <div className="mx-auto mb-56 p-8 shadow-lg ">
-        <h4 className=" text-center text-7xl  mb-20">LATEST BOOKS</h4>
+        <h4 className=" text-center text-7xl  mb-20">
+          LATEST{" "}
+          <span
+            style={{
+              clipPath:
+                "polygon(100% 0, 93% 50%, 100% 99%, 0% 100%, 7% 50%, 0% 0%)",
+            }}
+            className="bg-[#BDE673] text-[#9F9FA5] px-8 py-2">
+            BOOKS
+          </span>
+        </h4>
         <BookSlider books={latestBooks} authors={authors} />
       </div>
 
       <div className="mx-auto mb-56 p-8 shadow-lg">
-        <h4 className=" text-center text-7xl mb-20">FREE BOOKS</h4>
+        <h4 className=" text-center text-7xl mb-20">
+          FREE{" "}
+          <span
+            style={{
+              clipPath:
+                "polygon(100% 0, 93% 50%, 100% 99%, 0% 100%, 7% 50%, 0% 0%)",
+            }}
+            className="bg-[#BDE673] text-[#9F9FA5] px-8 py-2">
+            BOOKS
+          </span>
+        </h4>
+        <Link href={"/books/free-books"}>
+          <p className="mb-2 underline">See All</p>
+        </Link>
         <BookSlider books={freeBooks} authors={authors} />
       </div>
 
       <div className="mx-auto mb-56 p-8 shadow-lg">
-        <h4 className=" text-center text-7xl mb-20">PREMIUM BOOKS</h4>
+        <h4 className=" text-center text-7xl mb-20">
+          PREMIUM{" "}
+          <span
+            style={{
+              clipPath:
+                "polygon(100% 0, 93% 50%, 100% 99%, 0% 100%, 7% 50%, 0% 0%)",
+            }}
+            className="bg-[#BDE673] text-[#9F9FA5] px-8 py-2">
+            BOOKS
+          </span>
+        </h4>
+        <Link href={"/books/premium-books"}>
+          <p className="mb-2 underline">See All</p>
+        </Link>
         <BookSlider books={premiumBooks} authors={authors} />
       </div>
     </>
