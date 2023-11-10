@@ -1,14 +1,4 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import BookCard from "@/components/BookCard";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import { prisma } from "@/libs/prisma";
 import BookSlider from "@/components/BookSlider";
 
