@@ -2,6 +2,7 @@ import React from 'react'
 import { EditBookForm } from './EditBookForm'
 import { prisma } from '@/libs/prisma'
 import { Author, Books } from '@prisma/client'
+import BackofficeLayout from '@/components/BackofficeLayout'
 
 export default async function EditBook({params}: {params: {id: number}}) {
     const {id} = params
@@ -13,8 +14,8 @@ export default async function EditBook({params}: {params: {id: number}}) {
     const author = await prisma.author.findFirst({where: {id: book?.author_id}})
     const validConnectedCategoryIds = allCategories.filter(item => connectedCategoryIds.includes(item.id)).map(item => item.id)
   return (
-    <div>
+    <BackofficeLayout title='Edit Book' link='/backoffice/books' button='Back'>
         <EditBookForm book={book as Books} categories={allCategories} author={author as Author} connectedCategoryIds={validConnectedCategoryIds} />
-    </div>
+    </BackofficeLayout>
   )
 }

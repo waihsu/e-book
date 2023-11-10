@@ -110,6 +110,11 @@ export async function updateBook({
 const updatedBook = await prisma.books.update({where: {id},data: {title,price,is_premium}})
 }
 
+export async function deleteBook(id: number) {
+  await prisma.categories_Books.deleteMany({where: {books_id: id}})
+  const deletedBook = await prisma.books.delete({where: {id}})
+}
+
 
 
 

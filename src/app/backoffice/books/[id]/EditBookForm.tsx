@@ -23,7 +23,7 @@ import { storage } from "@/db";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
-import { createBook, updateBook } from "@/app/action";
+import { createBook, deleteBook, updateBook } from "@/app/action";
 import { Author, Books, Categories } from "@prisma/client";
 import {
   Select,
@@ -98,6 +98,14 @@ export function EditBookForm({
   console.log(connectedCategoryIds)
 
   return (
+    <div>
+        <div className="flex justify-end">
+        <Button onClick={() => {
+           deleteBook(book.id)
+            router.replace("/backoffice/books")
+            router.refresh()
+        }} style={{backgroundColor: 'red'}}>Delete</Button>
+        </div>
     <Card className="p-4">
       <form action={onSubmit} className="space-y-4">
       <div>
@@ -166,5 +174,6 @@ export function EditBookForm({
       <Button type="submit">Update</Button>
     </form>
     </Card>
+    </div>
   );
 }

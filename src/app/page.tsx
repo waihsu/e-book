@@ -1,45 +1,54 @@
 
-import FileDropZone from '@/components/FileDropZone'
-import { storage } from '@/db'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import BookCard from '@/components/BookCard'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { prisma } from '@/libs/prisma'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
-import Image from 'next/image'
-import { useState } from 'react'
+import BookSlider from '@/components/BookSlider';
+
+
+
 
 
 export default async function Home() {
-  // const [selectedFile, setSelectedFile] = useState<File[]>([])
-  // const onSelectedFile = (selectedFile: File[]) => {
-  //   setSelectedFile(selectedFile)
-  // }
 
-  // const uploadFile = async (selectedFile: File[]) => {
-  //   try {
-  //     const postsRef = ref(storage, `books/${selectedFile[0].name}`);
-  //     const bookRef = ref(storage, `books/${selectedFile[0].name}`);
-  //     const bookUrl = await uploadBytes(postsRef, selectedFile[0]);
+  const authors = await prisma.author.findMany()
 
-  //     const data = await getDownloadURL(bookRef);
-  //     return data;
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //   }
-  // }
+  const latestBooks = await prisma.books.findMany({
+    take: 10,
+    orderBy: {createdAt: "desc"}})
 
-  const books = await prisma.books.findMany()
+  const freeBooks = await prisma.books.findMany({
+    take: 10,
+    orderBy: {createdAt: "desc"},
+    where: {is_premium: false}
+  })
+
+  const premiumBooks = await prisma.books.findMany({
+    take: 10,
+    orderBy: {createdAt: "desc"},
+    where: {is_premium: true}
+  })
+
+  
 
 
   return (
     <>
-    <div className=' h-96 bg-purple-500 flex items-center justify-center'>
-      <h3 className=' text-2xl font-bold'>Myanmar E-Book Free & Premium Download </h3>
+    <div className=' h-96 flex items-center justify-center'>
+      <h3 className=' text-6xl font-bold'>Myanmar E-Book Free & Premium Download </h3>
     </div>
-    <div>
-      {books.map(item => (
-        <div key={item.id}>
-          <h1>{item.title}</h1>
-        </div>
-      ))}
+    <h4 className=' text-center text-5xl font-semibold mb-20'>Latest Books</h4>
+    <div className='md:w-[700px] lg:w-[1100px] h-[500px]  mx-auto mb-4'>
+      <BookSlider books={latestBooks} authors={authors} />
+    </div>
+    <h4 className=' text-center text-5xl font-semibold mb-20'>Free Books</h4>
+    <div className='md:w-[700px] lg:w-[1100px] h-[500px] mx-auto mb-4'>
+      <BookSlider books={freeBooks} authors={authors} />
+    </div>
+    <h4 className=' text-center text-5xl font-semibold mb-20'>Premium Books</h4>
+    <div className='md:w-[700px] lg:w-[1100px] h-[500px] mx-auto'>
+      <BookSlider books={premiumBooks} authors={authors}/>
     </div>
     </>
   )

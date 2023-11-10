@@ -16,7 +16,7 @@ model User {
   name      String?
   role      UserRole @default(USER)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Author {
@@ -27,7 +27,7 @@ model Author {
   is_archived   Boolean  @default(false)
   Books         Books[]
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime @default(now()) @updatedAt
 }
 
 model Categories {
@@ -36,7 +36,7 @@ model Categories {
   is_archived      Boolean            @default(false)
   Categories_Books Categories_Books[]
   createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
+  updatedAt        DateTime           @default(now()) @updatedAt
 }
 
 model Books {
@@ -51,7 +51,7 @@ model Books {
   author           Author             @relation(fields: [author_id], references: [id])
   Categories_Books Categories_Books[]
   createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
+  updatedAt        DateTime           @default(now()) @updatedAt
 }
 
 model Categories_Books {
@@ -62,7 +62,7 @@ model Categories_Books {
   categories    Categories @relation(fields: [categories_id], references: [id])
   books         Books      @relation(fields: [books_id], references: [id])
   createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  updatedAt     DateTime   @default(now()) @updatedAt
 }
 
 enum UserRole {

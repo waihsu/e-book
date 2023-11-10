@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils"
 import "./globals.css"
 import { Inter as FontSans } from "next/font/google"
+import Navbar from "@/components/Navbar"
+import { ThemeProvider } from "./ThemeProvider"
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -16,12 +18,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
+        className="bg-[#2D2D33]"
       >
+        <ThemeProvider
+        attribute="class"
+        defaultTheme="dark"
+        enableSystem
+        disableTransitionOnChange>
+        <Navbar />
       {children}
+      </ThemeProvider>
       </body>
     </html>
   )
