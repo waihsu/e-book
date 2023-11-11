@@ -10,7 +10,7 @@ export default async function FreeBooks() {
     const categoreis_books = await prisma.categories_Books.findMany({where:{is_archived: false}})
     const authors = await prisma.author.findMany()
   return (
-    <div>
+    <div className='w-full'>
         <BookCategoriesTabs categories={categories} books={books} categories_books={categoreis_books} authors={authors} />
     </div>
   )
