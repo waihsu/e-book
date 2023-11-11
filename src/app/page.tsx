@@ -35,7 +35,7 @@ export default async function Home() {
         </h3>
       </div>
 
-      <div className="mx-auto mb-56 p-8 shadow-lg ">
+      <div className=" h-[700px] mx-auto mb-56 p-8">
         <h4 className=" text-center text-7xl  mb-20">
           LATEST{" "}
           <span

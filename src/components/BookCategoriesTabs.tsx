@@ -23,7 +23,7 @@ export default function BookCategoriesTabs({authors,categories,books,categories_
         ))}
         
       </TabsList>
-      <div className="grid w-full grid-cols-2">
+      <div className="flex flex-wrap gap-10">
       {books.map(item => (
         <TabsContent key={item.id} value="all" className=' text-right'><BookCard book={item} authors={authors} /></TabsContent>
       ))}
