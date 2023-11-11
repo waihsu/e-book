@@ -36,7 +36,7 @@ export default async function Home() {
       </div>
 
       <div className=" h-[700px] mx-auto mb-56 p-8">
-        <h4 className=" text-center text-7xl  mb-20">
+        <h4 className=" text-center text-lg sm:text-7xl  mb-20">
           LATEST{" "}
           <span
             style={{
@@ -51,7 +51,7 @@ export default async function Home() {
       </div>
 
       <div className="mx-auto mb-56 p-8 shadow-lg">
-        <h4 className=" text-center text-7xl mb-20">
+        <h4 className=" text-center text-lg sm:text-7xl mb-20">
           FREE{" "}
           <span
             style={{
@@ -69,7 +69,7 @@ export default async function Home() {
       </div>
 
       <div className="mx-auto mb-56 p-8 shadow-lg">
-        <h4 className=" text-center text-7xl mb-20">
+        <h4 className=" text-center text-lg sm:text-7xl mb-20">
           PREMIUM{" "}
           <span
             style={{

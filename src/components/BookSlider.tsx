@@ -13,7 +13,7 @@ import 'swiper/css/effect-fade';
 export default function BookSlider({books,authors}: {books: Books[],authors: Author[]}) {
   return (
     
-    <Swiper autoplay effect='slide' spaceBetween={20} direction='horizontal' slidesPerView={3} >
+    <Swiper modules={[EffectFade]}  autoplay={{delay: 3000}}  spaceBetween={20} direction='horizontal' slidesPerView={1} breakpoints={{640: {width: 440,slidesPerView: 1},768: {width: 968, slidesPerView: 2}}}  >
       {books.map(item => (
         <SwiperSlide key={item.id}>
             <BookCard book={item} authors={authors}  />
