@@ -28,7 +28,7 @@ export default function BookCard({
     <motion.div
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      style={{ width: 400, position: "relative", overflow: "hidden" }}>
+      className="w-full">
       <Image
         src={book.asset_url}
         className={
@@ -47,7 +47,7 @@ export default function BookCard({
         variants={childVariants}
         initial="hidden"
         animate={isHovered ? "hover" : "hidden"}
-        className="w-full h-full bg-[#9F9FA5] rounded-none absolute top-0 right-0 flex flex-col justify-center items-center">
+        className="w-full h-full  rounded-none absolute top-0 right-0 flex flex-col justify-center items-center select-none">
         
         <CardTitle className="text-black mb-4">Author: {authorName(book.author_id)}</CardTitle>
         <Link href={`/books/${book.id}`}>
@@ -55,6 +55,9 @@ export default function BookCard({
         </Link>
         
       </motion.div>
+      <Link className="flex sm:hidden absolute bottom-0" href={`/books/${book.id}`}>
+          <Button className="bg-red-500">View Details</Button>
+        </Link>
     </motion.div>
   );
 }

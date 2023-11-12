@@ -1,12 +1,17 @@
+'use client'
 import React from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 import Image from 'next/image'
-import { Author, Books } from '@prisma/client'
+import { Author, Books, User } from '@prisma/client'
 import {BsFillCalendar2XFill} from 'react-icons/bs'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
+
 
 export default function BookCardDetails({book,authors}: {book: Books,authors: Author[]}) {
+  const {data: session} = useSession()
+  const user = session?.user as User
     const authorName = (id: number) => {
         return authors.filter(author => author.id === id)[0]?.name
       }
@@ -26,9 +31,15 @@ export default function BookCardDetails({book,authors}: {book: Books,authors: Au
         <CardContent className='items-center gap-2 hidden sm:flex'>
             <BsFillCalendar2XFill />:<span className='text-sm'>{book.createdAt.toUTCString()}</span>
         </CardContent>
-        <CardFooter>
+        {user?.is_paid ? (
+          <CardFooter>
           <Link href={book.book_url}><Button>Download</Button></Link>
         </CardFooter>
+        ) : (
+          <CardFooter>
+          {book.is_premium ? <Button>Premium</Button> : <Link href={book.book_url}><Button>Download</Button></Link>}
+        </CardFooter>
+        )}
         </div>
       </Card>
   )

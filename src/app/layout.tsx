@@ -3,6 +3,8 @@ import "./globals.css"
 import { Inter as FontSans } from "next/font/google"
 import Navbar from "@/components/Navbar"
 import { ThemeProvider } from "./ThemeProvider"
+import NextAuthSessionProvider from "./provider/NextAuthSessionProvider"
+import Footer from "@/components/Footer"
 
 
 export const fontSans = FontSans({
@@ -21,16 +23,19 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body
         className="bg-[#2D2D33] scrollbar-thin overflow-x-hidden"
       >
+        <NextAuthSessionProvider>
         <ThemeProvider
         attribute="class"
         defaultTheme="dark"
         enableSystem
         disableTransitionOnChange>
         <Navbar />
-      <div className="px-10">
+      <div className="px-4 md:px-10">
       {children}
       </div>
+      <Footer />
       </ThemeProvider>
+      </NextAuthSessionProvider>
       </body>
     </html>
   )
