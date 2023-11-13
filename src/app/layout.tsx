@@ -32,8 +32,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Navbar />
       <div className="px-4 md:px-10">
       {children}
-      </div>
       <Footer />
+      </div>
+      
       </ThemeProvider>
       </NextAuthSessionProvider>
       </body>
