@@ -25,8 +25,8 @@ export default function BookCard({
   };
   return (
    <Link href={`/books/${book.id}`}>
-     <Card size="2" style={{ maxWidth: 280, backgroundColor: "red" }}>
-    <Inset clip="padding-box" side="top" pb="current">
+     <Card style={{ maxWidth: 280, backgroundColor: "red" }}>
+    <Inset clip="padding-box">
       <Image src={book.asset_url} alt="bookImage" width={280} height={170} />
     </Inset>
     

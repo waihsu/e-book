@@ -3,6 +3,7 @@ import React from "react";
 
 import { Session, getServerSession } from "next-auth";
 import PopoverAvatar from "./PopoverAvatar";
+import Menu from "./Menu";
 
 
 
@@ -51,8 +52,14 @@ export default async function Navbar() {
             </Link>
           ))}
         </div>
-        <div>
+        <div className=" flex gap-2">
+        <div >
           <PopoverAvatar session={session as Session} />
+          
+        </div>
+        <div className=" flex sm:hidden" >
+          <Menu />
+        </div>
         </div>
       </div>
     </div>

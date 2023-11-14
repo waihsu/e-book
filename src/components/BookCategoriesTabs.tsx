@@ -17,7 +17,7 @@ export default function BookCategoriesTabs({
   books: Books[];
   categories_books: Categories_Books[];
 }) {
-  const [selectCategoryId, setSelectCategoryId] = useState<string>();
+  const [selectCategoryId, setSelectCategoryId] = useState<string>("all");
 
   const selectedCategoryByBookIds = categories_books
     .filter((item) => item.categories_id === Number(selectCategoryId))
@@ -29,13 +29,12 @@ export default function BookCategoriesTabs({
 
   return (
     <Tabs.Root defaultValue="all"  className=" relative">
-     <div className=" w-fit absolute right-0">
-     <Card className="bg-[#393945]">
-     <Tabs.List style={{ width: 300,display: "flex", flexDirection: 'column', justifyContent: "center" ,alignItems: "center", gap: 10, textAlign: "start", padding: "16px 0"}}>
+     
+     
+     <Tabs.List className="flex gap-3 px-4 overflow-scroll scrollbar-none">
         <Tabs.Trigger value="all">All</Tabs.Trigger>
         {categories.map((item) => (
           <Tabs.Trigger
-          className=""
             onClick={() => setSelectCategoryId(String(item.id))}
             value={String(item.id)}
             key={item.id}>
@@ -43,8 +42,8 @@ export default function BookCategoriesTabs({
           </Tabs.Trigger>
         ))}
       </Tabs.List>
-     </Card>
-     </div>
+     
+     
       <div className="flex flex-wrap justify-center sm:justify-start gap-10 max-w-5xl ">
       {books.map((item) => (
             <Tabs.Content value="all" key={item.id}>

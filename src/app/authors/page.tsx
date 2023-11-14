@@ -11,9 +11,9 @@ export default async function Author() {
     <div className='flex flex-col gap-3'>
         {authors.map(item => (
             <Link key={item.id} href={`/authors/${item.id}`}>
-              <Card >
-                <CardContent>{item.name}</CardContent>
-            </Card>
+            <div>
+              <p>{item.name}</p>
+            </div>
             </Link>
         ))}
     </div>

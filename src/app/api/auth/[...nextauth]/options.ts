@@ -32,7 +32,9 @@ export const authOptions:NextAuthOptions = {
       }
       return true // Do different verification for other providers that don't have `email_verified`
     },
-    async jwt({ token, user }) {
+    async jwt({ token }) {
+      const user = await prisma.user.findFirst({where: {email: token.email as string}})
+      token.role = user?.role
         return { ...token, ...user };
       },
     async session({ session, token }) {

@@ -9,10 +9,12 @@ import {
   import { Button } from "./ui/button";
 import { signIn, signOut } from "next-auth/react";
 import { Session } from 'next-auth';
+import Menu from './Menu';
 
 export default function PopoverAvatar({session}: {session: Session}) {
   return (
-    <Popover>
+    <div className=''>
+      <Popover>
             <PopoverTrigger>
               <Avatar>
                 <AvatarImage src={session?.user?.image as string} />
@@ -26,5 +28,7 @@ export default function PopoverAvatar({session}: {session: Session}) {
               </div>
             </PopoverContent>
           </Popover>
+         
+    </div>
   )
 }
