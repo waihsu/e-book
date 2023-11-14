@@ -35,7 +35,7 @@ export const authOptions:NextAuthOptions = {
     async jwt({ token }) {
       const user = await prisma.user.findFirst({where: {email: token.email as string}})
       token.role = user?.role
-        return { ...token, ...user };
+        return token;
       },
     async session({ session, token }) {
 
