@@ -1,29 +1,45 @@
 import Link from "next/link";
 import React from "react";
 
-export default function Navbar() {
-  const menuItems = [
-    {
-      id: 1,
-      name: "HOME",
-      route: "/",
-    },
-    {
-      id: 2,
-      name: "FREE",
-      route: "/books/free-books",
-    },
-    {
-      id: 3,
-      name: "PREMIUM",
-      route: "/books/premium-books",
-    },
-    {
-      id: 4,
-      name: "ACCOUNT",
-      route: "/account",
-    },
-  ];
+import { Session, getServerSession } from "next-auth";
+import PopoverAvatar from "./PopoverAvatar";
+import Menu from "./Menu";
+
+
+
+const menuItems = [
+  {
+    id: 1,
+    name: "HOME",
+    route: "/",
+  },
+  {
+    id: 2,
+    name: "FREE",
+    route: "/books/free-books",
+  },
+  {
+    id: 3,
+    name: "PREMIUM",
+    route: "/books/premium-books",
+  },
+  {
+    id: 4,
+    name: "AUTHORS",
+    route: "/authors",
+  },
+  {
+    id: 5,
+    name: "ABOUT",
+    route: "/about",
+  },
+];
+
+export default async function Navbar() {
+
+  const session = await getServerSession()
+
+ 
   return (
     <div>
       <div className="flex justify-between py-8 px-10 ">
@@ -35,6 +51,15 @@ export default function Navbar() {
               <span>{item.name}</span>
             </Link>
           ))}
+        </div>
+        <div className=" flex gap-2">
+        <div >
+          <PopoverAvatar session={session as Session} />
+          
+        </div>
+        <div className=" flex sm:hidden" >
+          <Menu />
+        </div>
         </div>
       </div>
     </div>

@@ -24,8 +24,8 @@ export default async function Home() {
 
   return (
     <>
-      <div className="h-[400px] flex justify-center items-center mb-48">
-        <h3 className=" text-6xl font-bold text-center">
+      <div className=" flex flex-col justify-center items-center mb-48">
+        <h3 className=" text-6xl font-bold text-center mb-6">
           Myanmar <span className="text-[#9F9FA5]">E-Book Free</span> <br />
           <span className="text-center text-[#BDE673]">&</span>
           <br />{" "}
@@ -33,10 +33,11 @@ export default async function Home() {
             Premium <span className="text-white">Download</span>
           </span>{" "}
         </h3>
+        <p className=" max-w-xl text-[#9F9FA5]">Welcome to our comprehensive e-book library, where the digital realm meets the boundless landscape of knowledge. We have curated an extensive collection of e-books spanning diverse genres, subjects, and cultures, providing you with an enriching and immersive reading experience.</p>
       </div>
 
       <div className=" h-[700px] mx-auto mb-56 p-8">
-        <h4 className=" text-center text-7xl  mb-20">
+        <h4 className=" text-center text-lg sm:text-7xl  mb-20">
           LATEST{" "}
           <span
             style={{
@@ -51,7 +52,7 @@ export default async function Home() {
       </div>
 
       <div className="mx-auto mb-56 p-8 shadow-lg">
-        <h4 className=" text-center text-7xl mb-20">
+        <h4 className=" text-center text-lg sm:text-7xl mb-20">
           FREE{" "}
           <span
             style={{
@@ -69,7 +70,7 @@ export default async function Home() {
       </div>
 
       <div className="mx-auto mb-56 p-8 shadow-lg">
-        <h4 className=" text-center text-7xl mb-20">
+        <h4 className=" text-center text-lg sm:text-7xl mb-20">
           PREMIUM{" "}
           <span
             style={{
