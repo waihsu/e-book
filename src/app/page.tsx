@@ -30,7 +30,7 @@ export default async function Home() {
           <span className="text-center text-[#BDE673]">&</span>
           <br />{" "}
           <span className="text-[#9F9FA5]">
-            Premium <span className="">Download</span>
+            Premium <span className=" text-black dark:text-white">Download</span>
           </span>{" "}
         </h3>
         <p className=" max-w-xl text-[#9F9FA5]">Welcome to our comprehensive e-book library, where the digital realm meets the boundless landscape of knowledge. We have curated an extensive collection of e-books spanning diverse genres, subjects, and cultures, providing you with an enriching and immersive reading experience.</p>

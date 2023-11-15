@@ -43,8 +43,8 @@ export default async function Navbar() {
  
   return (
     <div>
-      <div className="flex justify-between py-8 px-10 ">
-        <h4 className="text-2xl font-semibold">E-BOOK</h4>
+      <div className="flex justify-between items-center py-6 px-10 ">
+        <h4 className="text-2xl font-semibold">Library</h4>
         <div className="gap-10 hidden sm:flex">
           {menuItems.map((item) => (
             <Link href={item.route} key={item.id}>
