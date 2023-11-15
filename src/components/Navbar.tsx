@@ -4,6 +4,7 @@ import React from "react";
 import { Session, getServerSession } from "next-auth";
 import PopoverAvatar from "./PopoverAvatar";
 import Menu from "./Menu";
+import { ThemeIcon } from "./ThemeIcon";
 
 
 
@@ -53,6 +54,7 @@ export default async function Navbar() {
           ))}
         </div>
         <div className=" flex gap-2">
+          <ThemeIcon />
         <div >
           <PopoverAvatar session={session as Session} />
           

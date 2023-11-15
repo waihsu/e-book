@@ -4,6 +4,7 @@ import { AiOutlineClose, AiOutlineMenuFold } from 'react-icons/ai'
 import { motion } from "framer-motion"
 import { MenuItem } from './MenuItems'
 import Link from 'next/link'
+import { Card } from './ui/card'
 
 
 const variants = {
@@ -47,12 +48,14 @@ export default function Menu() {
         <p>{isOpen ? <AiOutlineClose /> : <AiOutlineMenuFold /> }</p>
         </div>
        
-        <motion.div variants={variants} animate={isOpen ? "open" : "closed"} transition={{ delay: .1,duration: .6}}  className='w-full bg-[#2D2D33] rounded-lg border border-gray-100 h-screen flex flex-col absolute z-50 right-0 top-20'>
+        <motion.div variants={variants} animate={isOpen ? "open" : "closed"} transition={{ delay: .1,duration: .6}}  className='w-full rounded-lg border border-gray-100 h-screen flex flex-col absolute z-50 right-0 top-20'>
+        <Card className='h-full'>
         {menuItems.map(item => (
             <Link onClick={() => setIsOpen(false)} key={item.id} href={item.route}>
                 <MenuItem name={item.name}  />
             </Link>
         ))}
+        </Card>
         </motion.div>
      
     </div>
