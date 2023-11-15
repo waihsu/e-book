@@ -8,7 +8,7 @@ import 'swiper/css'
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
-import { Pagination, Navigation,EffectCoverflow } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation,EffectCoverflow } from 'swiper/modules';
 
 import 'swiper/css/effect-fade';
 
@@ -21,7 +21,10 @@ export default function BookSlider({books,authors}: {books: Books[],authors: Aut
     effect={'coverflow'}
     grabCursor={true}
     centeredSlides={true}
-        
+    autoplay={{
+      delay: 2500,
+      disableOnInteraction: false,
+    }}
         coverflowEffect={{
           rotate: 40,
           stretch: 0,
@@ -34,7 +37,7 @@ export default function BookSlider({books,authors}: {books: Books[],authors: Aut
       clickable: true,
     }}
     navigation={true}
-    modules={[Pagination, Navigation,EffectCoverflow]}
+    modules={[Autoplay,Pagination, Navigation,EffectCoverflow]}
     className="mySwiper"
     breakpoints={{640: {width: 440,slidesPerView: 1},768: {width: 968, slidesPerView: 4}}}  >
       {books.map(item => (
