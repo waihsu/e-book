@@ -16,7 +16,7 @@ export default function BookCardDetails({book,authors}: {book: Books,authors: Au
         return authors.filter(author => author.id === id)[0]?.name
       }
   return (
-    <Card className='flex flex-wrap w-full sm:w-[500px] md:w-[800px] mx-auto'>
+    <Card className=' dark:bg-[#36363F] flex flex-wrap w-full sm:w-[500px] md:w-[800px] mx-auto'>
         <div className='w-1/2 flex justify-center p-2'>
           <Image src={book.asset_url} alt='bookImage' width={500} height={0} />
         </div>

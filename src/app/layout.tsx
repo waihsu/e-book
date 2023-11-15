@@ -25,7 +25,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className=" scrollbar-thin overflow-x-hidden"
+        className=" dark:bg-[#2D2D33] scrollbar-thin overflow-x-hidden"
       >
         <SessionProvider session={session}>
         <Theme>
@@ -35,7 +35,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         enableSystem
         disableTransitionOnChange>
         <Navbar />
-      <div className="px-4 md:px-10 min-h-screen">
+      <div className="px-4 mt-8 md:px-10 min-h-screen">
       {children}
       
       </div>
