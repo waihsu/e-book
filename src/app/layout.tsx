@@ -25,13 +25,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
-        className="bg-[#2D2D33] scrollbar-thin overflow-x-hidden"
+        className=" scrollbar-thin overflow-x-hidden"
       >
         <SessionProvider session={session}>
         <Theme>
         <ThemeProvider
         attribute="class"
-        defaultTheme="dark"
+        // defaultTheme="dark"
         enableSystem
         disableTransitionOnChange>
         <Navbar />
