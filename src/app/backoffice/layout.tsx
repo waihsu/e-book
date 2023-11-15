@@ -19,7 +19,7 @@ export default async function BackofficeLayout({children}: {children: React.Reac
   }
 
   return (
-    <section className='flex min-h-screen items-center justify-center gap-10'>
+    <section className='flex min-h-screen  justify-center gap-10'>
         <BackOfficeSideBar />
         <div className=' w-[800px]' >
         {children}
