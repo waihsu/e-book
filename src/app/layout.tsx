@@ -4,9 +4,10 @@ import "./globals.css"
 import { Inter as FontSans } from "next/font/google"
 import Navbar from "@/components/Navbar"
 import { ThemeProvider } from "./ThemeProvider"
-import NextAuthSessionProvider from "./provider/NextAuthSessionProvider"
 import Footer from "@/components/Footer"
 import { Theme } from '@radix-ui/themes';
+import SessionProvider from './provider/NextAuthSessionProvider';
+import { getServerSession } from 'next-auth';
 
 
 export const fontSans = FontSans({
@@ -18,14 +19,15 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const session = await getServerSession()
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
         className="bg-[#2D2D33] scrollbar-thin overflow-x-hidden"
       >
-        <NextAuthSessionProvider>
+        <SessionProvider session={session}>
         <Theme>
         <ThemeProvider
         attribute="class"
@@ -40,7 +42,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <Footer />
       </ThemeProvider>
       </Theme>
-      </NextAuthSessionProvider>
+      </SessionProvider>
       </body>
     </html>
   )
