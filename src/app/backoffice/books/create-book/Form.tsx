@@ -61,7 +61,7 @@ export function BookForm({
     price: "",
     is_premium: false,
     author_id: "",
-    categories_id: [] as number[],
+    categories_id: [] as string[],
   });
   const [open, setOpen] = useState(false);
   const [bookImg, setBookImg] = useState<File[]>([]);
@@ -78,7 +78,7 @@ export function BookForm({
   };
 
   const uploadBookFile = async (selectedFile: File[]) => {
-    if (!selectedFile.length) return alert("Please select first book PDF File");
+    if (!selectedFile.length) return alert("Please select first book  File");
     const postsRef = ref(storage, `books/${selectedFile[0].name}`);
     const bookRef = ref(storage, `books/${selectedFile[0].name}`);
     const bookUrl = await uploadBytes(postsRef, selectedFile[0]);

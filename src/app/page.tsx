@@ -1,6 +1,7 @@
 import { prisma } from "@/libs/prisma";
 import BookSlider from "@/components/BookSlider";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default async function Home() {
   const authors = await prisma.author.findMany();
@@ -25,6 +26,10 @@ export default async function Home() {
   return (
     <>
       <div className=" flex flex-col justify-center items-center mb-48">
+        
+        <Link className=" self-end mb-10" href={'/subscribe'}>
+        <Button  >Subscribe</Button>
+        </Link>
         <h3 className=" text-6xl font-bold text-center mb-6">
           Myanmar <span className="text-[#9F9FA5]">E-Book Free</span> <br />
           <span className="text-center text-[#BDE673]">&</span>

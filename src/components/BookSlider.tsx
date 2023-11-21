@@ -41,8 +41,8 @@ export default function BookSlider({books,authors}: {books: Books[],authors: Aut
     className="mySwiper"
     breakpoints={{640: {width: 440,slidesPerView: 1},768: {width: 968, slidesPerView: 4}}}  >
       {books.map(item => (
-        <SwiperSlide key={item.id} virtualIndex={item.id}>
-            <BookCard book={item} authors={authors}  />
+        <SwiperSlide key={item.id} virtualIndex={Number(item.id)}>
+            <BookCard book={item}  />
         </SwiperSlide>
         
       ))}

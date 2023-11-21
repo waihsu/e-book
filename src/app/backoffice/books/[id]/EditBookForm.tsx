@@ -25,13 +25,6 @@ import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
 import { createBook, deleteBook, updateBook } from "@/app/action";
 import { Author, Books, Categories } from "@prisma/client";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { TextField } from "@mui/material";
 import { Card } from "@/components/ui/card";
 
@@ -54,14 +47,14 @@ export function EditBookForm({
     book: Books
   author: Author;
   categories: Categories[];
-  connectedCategoryIds: number[]
+  connectedCategoryIds: string[]
 }) {
   const router = useRouter();
 
   const [bookInfo, setBookInfo] = useState({
     id: book.id,
     title: book.title,
-    price: book.price,
+    price: book.price as string,
     is_premium: book.is_premium,
     categories_id: connectedCategoryIds,
   });
@@ -156,7 +149,7 @@ export function EditBookForm({
       <div>
         <Label>Price</Label>
         <Input
-        defaultValue={book.price}
+        defaultValue={book.price as string}
           placeholder="Price"
           type="text"
           onChange={(e) => setBookInfo({ ...bookInfo, price: e.target.value })}

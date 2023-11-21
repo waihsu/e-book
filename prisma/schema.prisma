@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   email     String   @unique
   name      String?
   is_paid   Boolean  @default(false)
@@ -21,7 +21,7 @@ model User {
 }
 
 model Author {
-  id            Int      @id @default(autoincrement())
+  id            String      @id @default(uuid())
   name          String
   date_of_birth String
   bio_graphy    String
@@ -32,7 +32,7 @@ model Author {
 }
 
 model Categories {
-  id               Int                @id @default(autoincrement())
+  id               String      @id @default(uuid())
   name             String
   is_archived      Boolean            @default(false)
   Categories_Books Categories_Books[]
@@ -41,29 +41,46 @@ model Categories {
 }
 
 model Books {
-  id               Int                @id @default(autoincrement())
+  id               String      @id @default(uuid())
   title            String
   asset_url        String
-  book_url         String
-  price            String
+  book_url         String?
+  price            String?
   is_premium       Boolean
-  author_id        Int
+  author_id        String
   is_archived      Boolean            @default(false)
   author           Author             @relation(fields: [author_id], references: [id])
   Categories_Books Categories_Books[]
+  Chapters          Chapters[]
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @default(now()) @updatedAt
 }
 
 model Categories_Books {
-  id            Int        @id @default(autoincrement())
-  categories_id Int
-  books_id      Int
+  id            String      @id @default(uuid())
+  categories_id String
+  books_id      String
   is_archived      Boolean            @default(false)
   categories    Categories @relation(fields: [categories_id], references: [id])
   books         Books      @relation(fields: [books_id], references: [id])
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @default(now()) @updatedAt
+}
+
+model Chapters {
+  id            String      @id @default(uuid())
+  book_id       String
+  books         Books     @relation(fields: [book_id],references: [id])
+  title         String
+  pages         Pages[]
+}
+
+model Pages {
+  id            String      @id  @default(uuid())
+  page_number   String
+  body          String
+  chapter_id    String      
+  chapters      Chapters    @relation(fields: [chapter_id],references: [id])
 }
 
 enum UserRole {

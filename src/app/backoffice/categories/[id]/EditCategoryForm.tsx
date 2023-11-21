@@ -21,7 +21,7 @@ import { Categories } from "@prisma/client"
 import { deleteCategory, updateCategory } from "@/app/action"
 
 const formSchema = z.object({
-    id: z.number().min(1, {
+    id: z.string().min(1, {
         message: "Not Valid"
     }),
   name: z.string().min(2, {

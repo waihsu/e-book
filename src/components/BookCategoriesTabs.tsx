@@ -20,7 +20,7 @@ export default function BookCategoriesTabs({
   const [selectCategoryId, setSelectCategoryId] = useState<string>("all");
 
   const selectedCategoryByBookIds = categories_books
-    .filter((item) => item.categories_id === Number(selectCategoryId))
+    .filter((item) => item.categories_id === selectCategoryId)
     .map((item) => item.books_id);
   console.log(selectedCategoryByBookIds);
   const selectedCategoryByBooks = books.filter((item) =>
@@ -47,12 +47,12 @@ export default function BookCategoriesTabs({
       <div className="flex flex-wrap justify-center sm:justify-start gap-10 max-w-5xl ">
       {books.map((item) => (
             <Tabs.Content value="all" key={item.id}>
-              <BookCard book={item} authors={authors} />
+              <BookCard book={item}  />
             </Tabs.Content>
           ))}
           {selectedCategoryByBooks.map((item) => (
             <Tabs.Content value={selectCategoryId as string} key={item.id}>
-              <BookCard book={item} authors={authors} />
+              <BookCard book={item} />
             </Tabs.Content>
           ))}
       </div>
