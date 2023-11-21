@@ -25,13 +25,6 @@ import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
 import { createBook, deleteBook, updateBook } from "@/app/action";
 import { Author, Books, Categories } from "@prisma/client";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { TextField } from "@mui/material";
 import { Card } from "@/components/ui/card";
 

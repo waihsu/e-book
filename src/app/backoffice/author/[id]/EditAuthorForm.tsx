@@ -20,7 +20,7 @@ import { Author } from "@prisma/client";
 import { deleteAuthor, updateAuthor } from "@/app/action";
 
 const formSchema = z.object({
-    id: z.number().min(1, {
+    id: z.string().min(1, {
         message: "Not Valid"
     }),
   name: z.string().min(2, {

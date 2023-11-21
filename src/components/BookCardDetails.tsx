@@ -14,10 +14,6 @@ import { Author, Books, Chapters, User } from "@prisma/client";
 import { BsFillCalendar2XFill } from "react-icons/bs";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { Viewer, Worker } from "@react-pdf-viewer/core";
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
-import "@react-pdf-viewer/core/lib/styles/index.css";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 export default function BookCardDetails({
   book,
@@ -28,7 +24,6 @@ export default function BookCardDetails({
   authors: Author[];
   chapters: Chapters[];
 }) {
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const { data: session } = useSession();
   const user = session?.user as User;
   const authorName = (id: string) => {
