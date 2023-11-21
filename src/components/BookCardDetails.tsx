@@ -14,6 +14,8 @@ import { Author, Books, Chapters, User } from "@prisma/client";
 import { BsFillCalendar2XFill } from "react-icons/bs";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import BookCard from "./BookCard";
+import { Divider } from "@mui/material";
 
 export default function BookCardDetails({
   book,
@@ -31,28 +33,47 @@ export default function BookCardDetails({
   };
   return (
     <div>
-      <Card className="w-full mx-auto md:px-20 md:py-10 dark:bg-[#36363F] flex flex-wrap md:flex-nowrap mb-10">
-        <div className=" w-full md:max-w-2xl bg-orange-300">
-        <Image src={book.asset_url} alt="bookImage" width={1000} height={1} className=" min-w-full h-full" />
-        </div>
-
-        <div className=" p-2 mx-auto min-w-fit">
-          <h1 className=" text-xs md:text-2xl md:font-extrabold">Title: {book.title}</h1>
-          <h3 className=" text-xs md:text-lg">Author: {authorName(book.author_id)}</h3>
-        </div>
+      <Card className=" relative h-96">
+        <Image
+          src={book.asset_url}
+          alt="bookImage"
+          quality={100}
+          sizes="100vw"
+          fill
+          style={{ objectFit: "cover" }}
+        />
       </Card>
-      <div className=" grid grid-cols-2">
-        {chapters.map((chapter,index) => (
-          <Link href={`/books/${book.id}/${chapter.id}`} key={chapter.id}>
-            <Card className=" flex items-center p-2">
-              <div className="w-1/2 rounded-md overflow-hidden">
-              <Image src={book.asset_url} alt="bookImage" width={100} height={100} className=" min-w-full min-h-full" />
+      <div className=" p-2 mx-auto min-w-fit">
+        <h1 className=" text-xs md:text-2xl md:font-extrabold">
+          Title: {book.title}
+        </h1>
+        <h3 className=" text-xs md:text-lg">
+          Author: {authorName(book.author_id)}
+        </h3>
+      </div>
+
+      <h2 className=" text-center text-4xl font-extrabold mb-10 ">Chapters</h2>
+      
+      <div className=" grid grid-cols-2 p-10 border border-l-purple-500">
+        {chapters.map((chapter, index) => (
+          <Link href={`/books/${book.id}/${chapter.id}`} key={chapter.id} className=" grid grid-cols-2 items-center">
+            <div>
+              <Card className=" relative max-w-xs h-20">
+                <Image
+                  src={book.asset_url}
+                  alt="bookImage"
+                  quality={100}
+                  sizes="100vw"
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
+              </Card>
+
+              
+            </div>
+            <div className="w-1/2">
+                <h3 className=" text-center">{chapter.title}</h3>
               </div>
-            
-             <div className="w-1/2">
-             <h3 className=" text-center">{chapter.title}</h3>
-             </div>
-            </Card>
           </Link>
         ))}
       </div>

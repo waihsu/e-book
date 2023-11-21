@@ -44,14 +44,14 @@ export default function BookCategoriesTabs({
       </Tabs.List>
      
      
-      <div className="flex flex-wrap justify-center sm:justify-start gap-10 max-w-5xl ">
+      <div className=" grid md:grid-cols-4 space-y-4 ">
       {books.map((item) => (
-            <Tabs.Content value="all" key={item.id}>
+            <Tabs.Content value="all" key={item.id} className="w-full md:w-52">
               <BookCard book={item}  />
             </Tabs.Content>
           ))}
           {selectedCategoryByBooks.map((item) => (
-            <Tabs.Content value={selectCategoryId as string} key={item.id}>
+            <Tabs.Content value={selectCategoryId as string} key={item.id} className="w-full md:w-32">
               <BookCard book={item} />
             </Tabs.Content>
           ))}
