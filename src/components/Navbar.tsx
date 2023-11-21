@@ -51,8 +51,8 @@ export default async function Navbar() {
           {menuItems.map((item) => (
             <Link href={item.route} key={item.id} className="group flex flex-col relative">
               {" "}
-              <p className="  hover:transform group-hover:-translate-y-10 transition delay-100 duration-500">{item.name}</p>
-              <p className=" absolute text-[#BDE673] hover:transform translate-y-32 group-hover:translate-y-0 transition duration-500">{item.name}</p>
+              <p className=" py-2 px-3 hover:transform group-hover:-translate-y-10 transition delay-100 duration-500">{item.name}</p>
+              <p className="border bg-[#BDE673] py-2 px-3 absolute text-black hover:transform translate-y-32 group-hover:translate-y-0 transition duration-500">{item.name}</p>
             </Link>
             
           ))}

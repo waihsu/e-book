@@ -1,46 +1,66 @@
-'use client'
-import React from 'react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
-import { Button } from './ui/button'
-import Image from 'next/image'
-import { Author, Books, User } from '@prisma/client'
-import {BsFillCalendar2XFill} from 'react-icons/bs'
-import Link from 'next/link'
-import { useSession } from 'next-auth/react'
+"use client";
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import Image from "next/image";
+import { Author, Books, Chapters, User } from "@prisma/client";
+import { BsFillCalendar2XFill } from "react-icons/bs";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
-
-export default function BookCardDetails({book,authors}: {book: Books,authors: Author[]}) {
-  const {data: session} = useSession()
-  const user = session?.user as User
-    const authorName = (id: number) => {
-        return authors.filter(author => author.id === id)[0]?.name
-      }
+export default function BookCardDetails({
+  book,
+  authors,
+  chapters,
+}: {
+  book: Books;
+  authors: Author[];
+  chapters: Chapters[];
+}) {
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+  const { data: session } = useSession();
+  const user = session?.user as User;
+  const authorName = (id: string) => {
+    return authors.filter((author) => author.id === id)[0]?.name;
+  };
   return (
-    <Card className=' dark:bg-[#36363F] flex flex-wrap w-full sm:w-[500px] md:w-[800px] mx-auto'>
-        <div className='w-1/2 flex justify-center p-2'>
-          <Image src={book.asset_url} alt='bookImage' width={500} height={0} />
+    <div>
+      <Card className="w-full mx-auto md:px-20 md:py-10 dark:bg-[#36363F] flex flex-wrap md:flex-nowrap mb-10">
+        <div className=" w-full md:max-w-2xl bg-orange-300">
+        <Image src={book.asset_url} alt="bookImage" width={1000} height={1} className=" min-w-full h-full" />
         </div>
-        <div className=' w-1/2 text-left'>
-        <CardHeader>
-          <CardTitle className='text-sm sm:text-lg md:text-5xl mb-4'>{book.title}</CardTitle>
-          <CardDescription className='text-xs sm:text-sm md:text-lg'>Author: {authorName(book.author_id)}</CardDescription>
-        </CardHeader>
-        <CardContent className='text-xs sm:text-sm md:text-2xl'>
-          Price: {book.price === "0" ? "Free" : book.price}
-        </CardContent>
-        <CardContent className='items-center gap-2 hidden sm:flex'>
-            <BsFillCalendar2XFill />:<span className='text-sm'>{book.createdAt.toUTCString()}</span>
-        </CardContent>
-        {user?.is_paid ? (
-          <CardFooter>
-          <Link href={book.book_url}><Button>Download</Button></Link>
-        </CardFooter>
-        ) : (
-          <CardFooter>
-          {book.is_premium ? <Button>Premium</Button> : <Link href={book.book_url}><Button>Download</Button></Link>}
-        </CardFooter>
-        )}
+
+        <div className=" p-2 mx-auto min-w-fit">
+          <h1 className=" text-xs md:text-2xl md:font-extrabold">Title: {book.title}</h1>
+          <h3 className=" text-xs md:text-lg">Author: {authorName(book.author_id)}</h3>
         </div>
       </Card>
-  )
+      <div className=" grid grid-cols-2">
+        {chapters.map((chapter,index) => (
+          <Link href={`/books/${book.id}/${chapter.id}`} key={chapter.id}>
+            <Card className=" flex items-center p-2">
+              <div className="w-1/2 rounded-md overflow-hidden">
+              <Image src={book.asset_url} alt="bookImage" width={100} height={100} className=" min-w-full min-h-full" />
+              </div>
+            
+             <div className="w-1/2">
+             <h3 className=" text-center">{chapter.title}</h3>
+             </div>
+            </Card>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }

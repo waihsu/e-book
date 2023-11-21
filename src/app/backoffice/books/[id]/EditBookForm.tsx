@@ -54,14 +54,14 @@ export function EditBookForm({
     book: Books
   author: Author;
   categories: Categories[];
-  connectedCategoryIds: number[]
+  connectedCategoryIds: string[]
 }) {
   const router = useRouter();
 
   const [bookInfo, setBookInfo] = useState({
     id: book.id,
     title: book.title,
-    price: book.price,
+    price: book.price as string,
     is_premium: book.is_premium,
     categories_id: connectedCategoryIds,
   });
@@ -156,7 +156,7 @@ export function EditBookForm({
       <div>
         <Label>Price</Label>
         <Input
-        defaultValue={book.price}
+        defaultValue={book.price as string}
           placeholder="Price"
           type="text"
           onChange={(e) => setBookInfo({ ...bookInfo, price: e.target.value })}

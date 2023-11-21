@@ -17,7 +17,7 @@ export default async function page() {
     <BackofficeLayout title="Categories" link="/backoffice/categories/create-category" button="Create  Categories">
       
       <div className="py-6">
-        <Card className="max-h-[400px] scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-100 overflow-scroll overflow-x-hidden flex flex-wrap justify-center items-center gap-10 py-10">
+        <Card className="max-h-[400px] dark:bg-zinc-300 scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-100 overflow-scroll overflow-x-hidden flex flex-wrap justify-center items-center gap-10 py-10">
           {categories.map((item) => (
             <Link key={item.id} href={`/backoffice/categories/${item.id}`}>
             <Card

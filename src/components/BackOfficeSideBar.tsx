@@ -1,11 +1,16 @@
+'use client'
 import React from 'react'
 import { Card, CardContent, CardHeader } from './ui/card'
 import {AiOutlineHome} from 'react-icons/ai'
 import {BiCategoryAlt} from 'react-icons/bi'
 import {PiBooksFill} from 'react-icons/pi'
 import Link from 'next/link'
+import { useParams, useSearchParams } from 'next/navigation'
 
 export default function BackOfficeSideBar() {
+
+    const params = useSearchParams()
+    console.log(params.getAll("/backoffice"))
 
     const menuItems = [
         {
@@ -25,23 +30,31 @@ export default function BackOfficeSideBar() {
             name: "Books",
             route: "/backoffice/books",
             icon: <PiBooksFill />
+        },
+        {
+            id: 4,
+            name: "Chapters",
+            route: "/backoffice/chapters",
+            icon: <PiBooksFill />
         }
     ]
 
   return (
-    <Card className=' w-60 h-96'>
-        <CardHeader>
+    <div className='dark:bg-[#36363F]  w-60 h-96'>
+        <h4>
                     BackOffice
-                </CardHeader>
+                </h4>
         {menuItems.map(item => (
-            <div key={item.id}>
-                <Link href={item.route}>
-                <CardContent className='flex items-center gap-2'>
+           
+                
+                    <Link href={item.route} key={item.id} className='bg-red-500 w-full'>
+                <p className='flex items-center gap-2 bg-orange-300'>
                     {item.icon}
                     {item.name}
-                </CardContent></Link>
-            </div>
+                </p></Link>
+                
+         
         ))}
-    </Card>
+    </div>
   )
 }

@@ -61,7 +61,7 @@ export function BookForm({
     price: "",
     is_premium: false,
     author_id: "",
-    categories_id: [] as number[],
+    categories_id: [] as string[],
   });
   const [open, setOpen] = useState(false);
   const [bookImg, setBookImg] = useState<File[]>([]);
