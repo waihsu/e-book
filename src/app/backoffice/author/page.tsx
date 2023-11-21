@@ -13,10 +13,10 @@ export default async function page() {
       link="/backoffice/author/create-author"
       button="Create Author">
       <div className="pb-6">
-        <Card className="max-h-[400px] scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-100 overflow-scroll overflow-x-hidden flex flex-wrap justify-center items-center gap-10 py-10">
+        <Card className="max-h-[400px] dark:bg-[#36363F]  scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-100 overflow-scroll overflow-x-hidden flex flex-wrap justify-center items-center gap-10 py-10">
           {authors.map((item) => (
             <Link key={item.id} href={`/backoffice/author/${item.id}`}>
-              <Card className="flex justify-center items-center w-32 h-32">
+              <Card className="dark:bg-[#3e3e71] flex justify-center items-center w-32 h-32">
                 <CardContent>{item.name}</CardContent>
               </Card>
             </Link>
