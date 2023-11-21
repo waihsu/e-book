@@ -11,11 +11,11 @@ export default async function page() {
   return (
     <BackofficeLayout title='Select Book To Create Chapters'link='' >
       <div className="py-6">
-        <Card className="max-h-[400px] scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-100 overflow-scroll overflow-x-hidden flex flex-wrap justify-center items-center gap-10 py-10">
+        <Card className="max-h-[400px] dark:bg-[#36363F] scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-100 overflow-scroll overflow-x-hidden flex flex-wrap justify-center items-center gap-10 py-10">
           {books.map((item) => (
             <Link key={item.id} href={`/backoffice/chapters/${item.id}`}>
             <Card
-              className="flex justify-center items-center w-32 h-32">
+              className="dark:bg-[#37373e] shadow-md border-none  flex justify-center items-center w-32 h-32">
               <CardContent>{item.title}</CardContent>
             </Card>
             </Link>

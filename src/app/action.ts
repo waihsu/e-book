@@ -139,6 +139,16 @@ export async function createPage({chapter_id,page_number,body}: {chapter_id: str
   await prisma.pages.create({data: {chapter_id,page_number,body}})
 }
 
+export async function updatePage({id,page_number,body,chapter_id}: {id: string,page_number: string,body: string,chapter_id: string}) {
+  const updatedPage = await prisma.pages.update({where: {id: id}, data: {page_number,body,chapter_id}})
+  console.log(updatedPage)
+}
+
+export async function deletePage(id: string) {
+  const deletedPage = await prisma.pages.delete({where: {id}})
+  console.log(deletedPage)
+}
+
 
 
 export  const uploadBookImage = async (selectedFile: File[]) => {

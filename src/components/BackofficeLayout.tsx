@@ -18,7 +18,7 @@ export default function BackofficeLayout({children,title,link,button}: Props) {
         <div className='flex justify-between items-center'>
             <h3 className='text-2xl font-bold'>{title}</h3>
             <Link href={link}>
-            <Button>{button}</Button>
+            {button ? <Button>{button}</Button> : ""}
             </Link>
         </div>
         <div className='py-4 min-h-[400px]'>
