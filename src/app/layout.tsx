@@ -9,6 +9,7 @@ import Footer from "@/components/Footer"
 import { Theme } from '@radix-ui/themes';
 import SessionProvider from './provider/NextAuthSessionProvider';
 import { getServerSession } from 'next-auth';
+import {  Analytics } from '@vercel/analytics/react'
 
 
 export const fontSans = FontSans({
@@ -38,7 +39,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <Navbar />
       <div className="px-4 mt-8 md:px-10 min-h-screen">
       {children}
-      
+      <Analytics />
       </div>
       <Footer />
       </ThemeProvider>
