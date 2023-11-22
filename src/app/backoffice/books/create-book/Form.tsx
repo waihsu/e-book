@@ -194,13 +194,13 @@ export function BookForm({
           onChange={(e) => e.target.files && setBookImg([e.target.files[0]])}
         />
       </div>
-      <div>
+      {/* <div>
         <Label>Select Book File</Label>
         <Input
           type="file"
           onChange={(e) => e.target.files && setBookFile([e.target.files[0]])}
         />
-      </div>
+      </div> */}
       <Button type="submit">Create</Button>
     </form>
     </Card>
