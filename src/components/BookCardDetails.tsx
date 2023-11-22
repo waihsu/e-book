@@ -56,7 +56,7 @@ export default function BookCardDetails({
       
       <div className=" grid grid-cols-2">
         {chapters.map((chapter, index) => (
-          <Link href={`/books/${book.id}/${chapter.id}`} key={chapter.id} className=" grid grid-cols-2 items-center p-4 shadow-lg border">
+          <Link href={`/books/${book.id}/${chapter.id}`} key={chapter.id} className=" grid grid-cols-1 md:grid-cols-2 items-center p-4 shadow-lg border">
             <div>
               <Card className=" relative max-w-xs h-40">
                 <Image
