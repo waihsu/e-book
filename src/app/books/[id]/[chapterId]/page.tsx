@@ -24,7 +24,7 @@ export default async function page({
             {/* <h4 className=' text-right mb-4'>Page {page.page_number}</h4>
               <p>{page.body}</p> */}
             <Image
-              src="https://firebasestorage.googleapis.com/v0/b/waihsu-7ed10.appspot.com/o/images%2FScreenshot%202023-11-22%20084011.jpg?alt=media&token=67ec15aa-1d57-4472-8ee0-3080ec4b0489"
+              src={page.asset_url}
               alt="pageimage"
               layout="responsive"
               width={0}
