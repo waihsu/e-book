@@ -54,7 +54,7 @@ export default function BookCardDetails({
 
       <h2 className=" text-center text-4xl font-extrabold mb-10 ">Chapters</h2>
       
-      <div className=" grid grid-cols-2 p-10 border border-l-purple-500">
+      <div className=" grid grid-cols-2">
         {chapters.map((chapter, index) => (
           <Link href={`/books/${book.id}/${chapter.id}`} key={chapter.id} className=" grid grid-cols-2 items-center">
             <div>

@@ -35,6 +35,7 @@ export default function CreatePageForm({ chapterId, bookId }: { chapterId: strin
     page.asset_url = asset_url
     await createPage(page);
     router.refresh();
+    setPageImg([])
   }
 
   return (
