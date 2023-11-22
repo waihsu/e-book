@@ -135,12 +135,12 @@ export async function createChapter({book_id,title}: {book_id: string, title: st
 }
 
 
-export async function createPage({chapter_id,page_number,body}: {chapter_id: string, page_number: string, body: string}) {
-  await prisma.pages.create({data: {chapter_id,page_number,body}})
+export async function createPage({chapter_id,page_number,asset_url}: {chapter_id: string, page_number: string, asset_url: string}) {
+  await prisma.pages.create({data: {chapter_id,page_number,asset_url}})
 }
 
-export async function updatePage({id,page_number,body,chapter_id}: {id: string,page_number: string,body: string,chapter_id: string}) {
-  const updatedPage = await prisma.pages.update({where: {id: id}, data: {page_number,body,chapter_id}})
+export async function updatePage({id,page_number,asset_url,chapter_id}: {id: string,page_number: string,asset_url: string,chapter_id: string}) {
+  const updatedPage = await prisma.pages.update({where: {id: id}, data: {page_number,asset_url,chapter_id}})
   console.log(updatedPage)
 }
 
