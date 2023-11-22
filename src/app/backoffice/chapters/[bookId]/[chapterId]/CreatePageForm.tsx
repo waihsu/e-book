@@ -34,7 +34,6 @@ export default function CreatePageForm({ chapterId, bookId }: { chapterId: strin
     if (!asset_url) return alert("All fields must be fill")
     page.asset_url = asset_url
     await createPage(page);
-    router.push(`/backoffice/chapters/${bookId}/${chapterId}`)
     router.refresh();
   }
 
