@@ -78,7 +78,7 @@ model Chapters {
 model Pages {
   id            String      @id  @default(uuid())
   page_number   String
-  body          String
+  asset_url          String
   chapter_id    String      
   chapters      Chapters    @relation(fields: [chapter_id],references: [id])
 }
