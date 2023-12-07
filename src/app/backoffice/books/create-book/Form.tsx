@@ -89,11 +89,10 @@ export function BookForm({
 
   async function onSubmit() {
     const bookImgUrl = await uploadBookImage(bookImg);
-    const bookFileUrl = await uploadBookFile(bookFile);
-    if (!bookImgUrl || !bookFileUrl) return alert("all fields must be fill");
-    if (bookImgUrl && bookFileUrl) {
+    // const bookFileUrl = await uploadBookFile(bookFile);
+    if (!bookImgUrl) return alert("all fields must be fill");
+    if (bookImgUrl) {
       book.asset_url = bookImgUrl as string;
-      book.book_url = bookFileUrl as string;
       book.is_premium = is_premium;
       const data = await createBook(book);
       if (data === "successful") {
