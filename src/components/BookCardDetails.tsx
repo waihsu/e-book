@@ -33,14 +33,14 @@ export default function BookCardDetails({
   };
   return (
     <div>
-      <Card className=" relative h-96">
+      <Card className=" relative h-[500px]">
         <Image
           src={book.asset_url}
           alt="bookImage"
           quality={100}
           sizes="100vw"
           fill
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "contain" }}
         />
       </Card>
       <div className=" p-2 mx-auto min-w-fit">

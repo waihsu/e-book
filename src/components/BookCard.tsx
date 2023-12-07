@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import { Card, Inset } from "@radix-ui/themes";
 import Link from "next/link";
+import { CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 const childVariants = {
   hidden: { opacity: 0, y: 100 },
@@ -19,10 +20,22 @@ export default function BookCard({
 }) {
 
   return (
-   <Link href={`/books/${book.id}`}>
-   <Card className=" relative h-96">
-        <Image src={book.asset_url} alt="bookImage" quality={100} sizes="100vw" fill style={{objectFit: "cover"}}  />
+    <Link href={`/books/${book.id}`}>
+      <Card className=" md:w-[350px] h-[500px]">
+        <div className="relative h-3/4 ">
+          <Image
+            src={book.asset_url}
+            alt="bookImage"
+            quality={100}
+            sizes="100vw"
+            fill
+            style={{ objectFit: "cover" }}
+          />
+        </div>
+        <CardHeader>
+          <CardTitle>{book.title}</CardTitle>
+        </CardHeader>
       </Card>
-   </Link>
+    </Link>
   );
 }

@@ -28,33 +28,50 @@ export default function BookCategoriesTabs({
   );
 
   return (
-    <Tabs.Root defaultValue="all"  className=" relative">
-     
-     
-     <Tabs.List className="flex gap-3 px-4 overflow-scroll scrollbar-none">
-        <Tabs.Trigger value="all">All</Tabs.Trigger>
+    <Tabs.Root defaultValue="all" className=" relative">
+      <Tabs.List className="flex gap-3 px-4 overflow-scroll scrollbar-none mb-2">
+        <Tabs.Trigger
+          style={{
+            borderBottomWidth: 1,
+            borderBottomColor: selectCategoryId === "all" ? "green" : "",
+            padding: "4px 20px",
+          }}
+          value="all"
+          onClick={() => setSelectCategoryId("all")}
+        >
+          All
+        </Tabs.Trigger>
         {categories.map((item) => (
           <Tabs.Trigger
+            style={{
+              borderBottomWidth: 1,
+              borderBottomColor: selectCategoryId === item.id ? "green" : "",
+              padding: "4px 20px",
+            }}
             onClick={() => setSelectCategoryId(String(item.id))}
             value={String(item.id)}
-            key={item.id}>
+            key={item.id}
+          >
             {item.name}
           </Tabs.Trigger>
         ))}
       </Tabs.List>
-     
-     
-      <div className=" grid md:grid-cols-4 space-y-4 ">
-      {books.map((item) => (
-            <Tabs.Content value="all" key={item.id} className="w-full md:w-52">
-              <BookCard book={item}  />
-            </Tabs.Content>
-          ))}
-          {selectedCategoryByBooks.map((item) => (
-            <Tabs.Content value={selectCategoryId as string} key={item.id} className="w-full md:w-32">
-              <BookCard book={item} />
-            </Tabs.Content>
-          ))}
+
+      <div className=" grid md:grid-cols-3 space-y-4 space-x-4 ">
+        {books.map((item) => (
+          <Tabs.Content value="all" key={item.id} className="w-full md:w-52">
+            <BookCard book={item} />
+          </Tabs.Content>
+        ))}
+        {selectedCategoryByBooks.map((item) => (
+          <Tabs.Content
+            value={selectCategoryId as string}
+            key={item.id}
+            className="w-full md:w-32"
+          >
+            <BookCard book={item} />
+          </Tabs.Content>
+        ))}
       </div>
     </Tabs.Root>
   );

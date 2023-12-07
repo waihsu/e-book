@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/libs/prisma";
 import Image from "next/image";
 import React from "react";
@@ -20,17 +20,23 @@ export default async function page({
       </h1>
       <div className=" w-full flex flex-col justify-center items-center">
         {pages.map((page) => (
-          <Card key={page.id} className="w-full md:w-[646px] md:h-[970px] relative">
-            {/* <h4 className=' text-right mb-4'>Page {page.page_number}</h4>
-              <p>{page.body}</p> */}
-            <Image
-              src={page.asset_url}
-              alt="pageimage"
-              layout="responsive"
-              width={0}
-              height={0}
-              className=" w-full h-full"
-            />
+          <Card
+            key={page.id}
+            className="w-full  md:w-[646px] md:h-[990px] px-4 "
+          >
+            <CardHeader>
+              <CardTitle>{page.page_number}</CardTitle>
+            </CardHeader>
+            
+              <Image
+                src={page.asset_url}
+                alt="pageImage"
+                layout="responsive"
+                width={0}
+                height={0}
+                style={{ objectFit: "contain" }}
+              />
+           
           </Card>
         ))}
       </div>

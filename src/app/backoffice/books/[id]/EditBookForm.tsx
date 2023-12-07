@@ -27,6 +27,7 @@ import { createBook, deleteBook, updateBook } from "@/app/action";
 import { Author, Books, Categories } from "@prisma/client";
 import { TextField } from "@mui/material";
 import { Card } from "@/components/ui/card";
+import DeleteDialog from "@/components/DeleteDialog";
 
 interface newBook {
   title: string;
@@ -93,11 +94,7 @@ export function EditBookForm({
   return (
     <div>
         <div className="flex justify-end">
-        <Button onClick={() => {
-           deleteBook(book.id)
-            router.replace("/backoffice/books")
-            router.refresh()
-        }} style={{backgroundColor: 'red'}}>Delete</Button>
+        <DeleteDialog route="/backoffice/books" callback={() => deleteBook(book.id)} />
         </div>
     <Card className="p-4">
       <form action={onSubmit} className="space-y-4">

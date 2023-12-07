@@ -3,7 +3,6 @@ import BookCard from '@/components/BookCard'
 import { Author, Books } from '@prisma/client'
 import React from 'react'
 import { SwiperSlide,Swiper } from 'swiper/react'
-// import 'swiper/swiper-bundle.css'
 import 'swiper/css'
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -26,7 +25,7 @@ export default function BookSlider({books,authors}: {books: Books[],authors: Aut
       disableOnInteraction: false,
     }}
         coverflowEffect={{
-          rotate: 40,
+          rotate: 30,
           stretch: 0,
           depth: 100,
           modifier: 1,
@@ -36,10 +35,10 @@ export default function BookSlider({books,authors}: {books: Books[],authors: Aut
     pagination={{
       clickable: true,
     }}
-    navigation={true}
+    // navigation={true}
     modules={[Autoplay,Pagination, Navigation,EffectCoverflow]}
-    className="mySwiper"
-    breakpoints={{640: {width: 440,slidesPerView: 1},768: {width: 968, slidesPerView: 4}}}  >
+    className="mySwiper flex justify-center items-center"
+    breakpoints={{640: {width: 440,slidesPerView: 1},768: {width: 968, slidesPerView: 3}}}  >
       {books.map(item => (
         <SwiperSlide key={item.id} virtualIndex={Number(item.id)}>
             <BookCard book={item}  />

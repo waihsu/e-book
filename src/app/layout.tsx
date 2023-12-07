@@ -10,6 +10,7 @@ import { Theme } from '@radix-ui/themes';
 import SessionProvider from './provider/NextAuthSessionProvider';
 import { getServerSession } from 'next-auth';
 import {  Analytics } from '@vercel/analytics/react'
+import { Toaster } from "@/components/ui/toaster";
 
 
 export const fontSans = FontSans({
@@ -26,26 +27,26 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body
-        className=" dark:bg-[#2D2D33] scrollbar-thin overflow-x-hidden"
-      >
+      <body className=" dark:bg-[#2D2D33] scrollbar-thin overflow-x-hidden">
         <SessionProvider session={session}>
-        <Theme>
-        <ThemeProvider
-        attribute="class"
-        // defaultTheme="dark"
-        enableSystem
-        disableTransitionOnChange>
-        <Navbar />
-      <div className="px-4 mt-8 md:px-10 min-h-screen">
-      {children}
-      <Analytics />
-      </div>
-      <Footer />
-      </ThemeProvider>
-      </Theme>
-      </SessionProvider>
+          <Theme>
+            <ThemeProvider
+              attribute="class"
+              // defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
+              <div className="px-4 mt-8 md:px-10 min-h-screen">
+                {children}
+                <Analytics />
+              </div>
+              <Toaster />
+              <Footer />
+            </ThemeProvider>
+          </Theme>
+        </SessionProvider>
       </body>
     </html>
-  )
+  );
 }
