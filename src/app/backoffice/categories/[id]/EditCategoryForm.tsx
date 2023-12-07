@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input"
 import { useRouter } from 'next/navigation'
 import { Categories } from "@prisma/client"
 import { deleteCategory, updateCategory } from "@/app/action"
+import DeleteDialog from "@/components/DeleteDialog"
+
 
 const formSchema = z.object({
     id: z.string().min(1, {
@@ -51,31 +53,25 @@ export function EditCategoryForm({category}: {category: Categories}) {
 
   return (
     <div>
-        <div className="flex justify-end">
-        <Button onClick={() => {
-            deleteCategory(category.id)
-            router.replace("/backoffice/categories")
-            router.refresh()
-        }} style={{backgroundColor: 'red'}}>Delete</Button>
-        </div>
-        <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }: {field: any}) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Update</Button>
-      </form>
-    </Form>
+      <DeleteDialog route="/backoffice/categories" callback={() =>deleteCategory(category.id)} />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }: { field: any }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Update</Button>
+        </form>
+      </Form>
     </div>
-  )
+  );
 }

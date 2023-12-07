@@ -22,8 +22,19 @@ export async function updateCategory({id,name}: {id: string,name: string}) {
 }
 
 export async function deleteCategory(id: string) {
-  await prisma.categories_Books.updateMany({where: {categories_id: id}, data: {is_archived: true}})
-  const deletedCategory = await prisma.categories.update({where: {id},data: {is_archived: true}})
+  try {
+await prisma.categories_Books.updateMany({
+  where: { categories_id: id },
+  data: { is_archived: true },
+});
+const deletedCategory = await prisma.categories.update({
+  where: { id },
+  data: { is_archived: true },
+});
+return 'successful'
+  }catch (err) {
+    return err
+  }
 }
 
 
@@ -118,8 +129,8 @@ const updatedBook = await prisma.books.update({where: {id},data: {title,price,is
 }
 
 export async function deleteBook(id: string) {
-  await prisma.categories_Books.deleteMany({where: {books_id: id}})
-  const deletedBook = await prisma.books.delete({where: {id}})
+  await prisma.categories_Books.updateMany({where: {books_id: id},data: {is_archived: true}})
+  const deletedBook = await prisma.books.update({where: {id},data: {is_archived: true}})
 }
 
 

@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { Author } from "@prisma/client";
 import { deleteAuthor, updateAuthor } from "@/app/action";
+import DeleteDialog from "@/components/DeleteDialog";
 
 const formSchema = z.object({
     id: z.string().min(1, {
@@ -56,11 +57,7 @@ export function EditAuthrForm({author}: {author: Author}) {
   return (
     <div>
         <div className="flex justify-end">
-        <Button onClick={() => {
-            deleteAuthor(author.id)
-            router.replace("/backoffice/author")
-            router.refresh()
-        }} style={{backgroundColor: 'red'}}>Delete</Button>
+      <DeleteDialog route="/backoffice/author" callback={() => deleteAuthor(author.id)} />
         </div>
         <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
