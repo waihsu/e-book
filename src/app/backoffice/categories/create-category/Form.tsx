@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 
 import { useRouter } from 'next/navigation'
 import { createCategory } from "@/app/action"
+import { useToast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -26,7 +27,7 @@ const formSchema = z.object({
 })
 
 export function CategoriesForm() {
-    
+    const {toast} = useToast()
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -35,12 +36,18 @@ export function CategoriesForm() {
         },
       })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+   async function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        createCategory(values.name)
-        router.replace("/backoffice/categories")
-        router.refresh()
+        const data = await createCategory(values.name)
+        if (data === "successful") {
+          toast({title: data})
+router.replace("/backoffice/categories");
+router.refresh();
+        }else {
+          toast({title: data as string})
+        }
+        
       }
 
   return (
