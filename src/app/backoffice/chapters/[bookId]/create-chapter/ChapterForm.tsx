@@ -10,6 +10,8 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { createChapter } from '@/app/action'
 import { useRouter } from 'next/navigation'
+import { toast } from '@/components/ui/use-toast'
+import { Button } from '@/components/ui/button'
 
 
 
@@ -26,16 +28,21 @@ console.log(bookId)
 
     async function onSubmit() {
         
-       await  createChapter(chapter)
-        router.push(`/backoffice/chapters/${bookId}`)
-        router.refresh()
+       const data = await  createChapter(chapter)
+         if (data === "successful") {
+          toast({title: data})
+          router.replace("/backoffice/books");
+          router.refresh();
+         }else {
+          toast({title: data})
+         }
       }
     
     
   return (
     <div>
       <form action={onSubmit}>
-        <div>
+        <div className=' mb-2'>
           <Label>Title</Label>
           <Input  placeholder="Title"
           type="text"
@@ -47,7 +54,7 @@ console.log(bookId)
           
           onChange={(e) => setChapter({ ...chapter, body: e.target.value })} />
         </div> */}
-        <button type='submit' >Submit</button>
+        <Button type='submit' >Submit</Button>
       </form>
     </div>
   )

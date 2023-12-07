@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/select";
 import { TextField } from "@mui/material";
 import { Card } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 
 interface newBook {
   title: string;
@@ -53,7 +54,7 @@ export function BookForm({
   categories: Categories[];
 }) {
   const router = useRouter();
-
+  const { toast } = useToast();
   const [book, setBook] = useState({
     title: "",
     asset_url: "",
@@ -94,115 +95,120 @@ export function BookForm({
       book.asset_url = bookImgUrl as string;
       book.book_url = bookFileUrl as string;
       book.is_premium = is_premium;
-       const data = await createBook(book)
-       router.replace("/backoffice/books")
-      router.refresh();
+      const data = await createBook(book);
+      if (data === "successful") {
+        toast({ title: data });
+        router.replace("/backoffice/books");
+        router.refresh();
+      } else {
+        toast({ title: data });
+      }
     }
   }
 
   return (
     <Card className="p-4">
       <form action={onSubmit} className="space-y-4">
-      <div>
-        <Label>Select Categories</Label>
-        <Autocomplete
-          multiple
-          id="tags-standard"
-          options={categories}
-          getOptionLabel={(option) => option.name}
-          onChange={(option, value) =>
-            setBook({ ...book, categories_id: value.map((item) => item.id) })
-          }
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.id}>
-                {option.name}
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              key={params.inputProps.id}
-              {...params}
-              id="categories"
-              variant="standard"
-              // label="Multiple values"
-              placeholder="Categories"
-            />
-          )}
-        />
-      </div>
+        <div>
+          <Label>Select Categories</Label>
+          <Autocomplete
+            multiple
+            id="tags-standard"
+            options={categories}
+            getOptionLabel={(option) => option.name}
+            onChange={(option, value) =>
+              setBook({ ...book, categories_id: value.map((item) => item.id) })
+            }
+            renderOption={(props, option) => {
+              return (
+                <li {...props} key={option.id}>
+                  {option.name}
+                </li>
+              );
+            }}
+            renderInput={(params) => (
+              <TextField
+                key={params.inputProps.id}
+                {...params}
+                id="categories"
+                variant="standard"
+                // label="Multiple values"
+                placeholder="Categories"
+              />
+            )}
+          />
+        </div>
 
-      <div>
-        <Label>Select Author</Label>
-        <Autocomplete
-          id="combo-box-demo"
-          options={authors}
-          sx={{ width: 300 }}
-          onChange={(option, value) =>
-            setBook({ ...book, author_id: String(value?.id) })
-          }
-          getOptionLabel={(option) => option.name}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.id}>
-                {option.name}
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              key={params.inputProps.id}
-              {...params}
-              id="Author"
-              variant="standard"
-              // label="Multiple values"
-              placeholder="Author"
-            />
-          )}
-        />
-      </div>
+        <div>
+          <Label>Select Author</Label>
+          <Autocomplete
+            id="combo-box-demo"
+            options={authors}
+            sx={{ width: 300 }}
+            onChange={(option, value) =>
+              setBook({ ...book, author_id: String(value?.id) })
+            }
+            getOptionLabel={(option) => option.name}
+            renderOption={(props, option) => {
+              return (
+                <li {...props} key={option.id}>
+                  {option.name}
+                </li>
+              );
+            }}
+            renderInput={(params) => (
+              <TextField
+                key={params.inputProps.id}
+                {...params}
+                id="Author"
+                variant="standard"
+                // label="Multiple values"
+                placeholder="Author"
+              />
+            )}
+          />
+        </div>
 
-      <div>
-        <Label>Title</Label>
-        <Input
-          placeholder="Title"
-          type="text"
-          onChange={(e) => setBook({ ...book, title: e.target.value })}
-        />
-      </div>
-      <div>
-        <Label>Price</Label>
-        <Input
-          placeholder="Price"
-          type="text"
-          onChange={(e) => setBook({ ...book, price: e.target.value })}
-        />
-      </div>
-      <div>
-        <Label>Is Premium</Label>
-        <Switch
-          checked={is_premium}
-          onCheckedChange={() => setIsPremium(!is_premium)}
-        />
-      </div>
-      <div>
-        <Label>Select Book Photo</Label>
-        {/* {bookImg.length ? <Image src={bookImg[0].slice}/>} : ""} */}
-        <Input
-          type="file"
-          onChange={(e) => e.target.files && setBookImg([e.target.files[0]])}
-        />
-      </div>
-      {/* <div>
+        <div>
+          <Label>Title</Label>
+          <Input
+            placeholder="Title"
+            type="text"
+            onChange={(e) => setBook({ ...book, title: e.target.value })}
+          />
+        </div>
+        <div>
+          <Label>Price</Label>
+          <Input
+            placeholder="Price"
+            type="text"
+            onChange={(e) => setBook({ ...book, price: e.target.value })}
+          />
+        </div>
+        <div>
+          <Label>Is Premium</Label>
+          <Switch
+            checked={is_premium}
+            onCheckedChange={() => setIsPremium(!is_premium)}
+          />
+        </div>
+        <div>
+          <Label>Select Book Photo</Label>
+          {/* {bookImg.length ? <Image src={bookImg[0].slice}/>} : ""} */}
+          <Input
+            type="file"
+            onChange={(e) => e.target.files && setBookImg([e.target.files[0]])}
+          />
+        </div>
+        {/* <div>
         <Label>Select Book File</Label>
         <Input
           type="file"
           onChange={(e) => e.target.files && setBookFile([e.target.files[0]])}
         />
       </div> */}
-      <Button type="submit">Create</Button>
-    </form>
+        <Button type="submit">Create</Button>
+      </form>
     </Card>
   );
 }

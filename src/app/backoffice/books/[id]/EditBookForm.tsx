@@ -28,6 +28,7 @@ import { Author, Books, Categories } from "@prisma/client";
 import { TextField } from "@mui/material";
 import { Card } from "@/components/ui/card";
 import DeleteDialog from "@/components/DeleteDialog";
+import { useToast } from "@/components/ui/use-toast";
 
 interface newBook {
   title: string;
@@ -40,18 +41,18 @@ interface newBook {
 }
 
 export function EditBookForm({
-    book,
+  book,
   author,
   categories,
-  connectedCategoryIds
+  connectedCategoryIds,
 }: {
-    book: Books
+  book: Books;
   author: Author;
   categories: Categories[];
-  connectedCategoryIds: string[]
+  connectedCategoryIds: string[];
 }) {
   const router = useRouter();
-
+  const { toast } = useToast();
   const [bookInfo, setBookInfo] = useState({
     id: book.id,
     title: book.title,
@@ -83,87 +84,105 @@ export function EditBookForm({
   };
 
   async function onSubmit() {
-    updateBook(bookInfo)
-       router.replace("/backoffice/books")
+    const data = await updateBook(bookInfo);
+    if (data === "successful") {
+      toast({ title: data });
+      router.replace("/backoffice/books");
       router.refresh();
-    
+    } else {
+      toast({ title: data });
+    }
   }
 
-  console.log(connectedCategoryIds)
+  console.log(connectedCategoryIds);
 
   return (
     <div>
-        <div className="flex justify-end">
-        <DeleteDialog route="/backoffice/books" callback={() => deleteBook(book.id)} />
-        </div>
-    <Card className="p-4">
-      <form action={onSubmit} className="space-y-4">
-      <div>
-        <Label>Select Categories</Label>
-        <Autocomplete
-          multiple
-          id="tags-standard"
-          options={categories}
-          defaultValue={categories.filter(item => connectedCategoryIds.includes(item.id))}
-          getOptionLabel={(option) => option.name}
-          onChange={(option, value) =>
-            setBookInfo({ ...bookInfo, categories_id: value.map((item) => item.id) })
-          }
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option.id}>
-                {option.name}
-              </li>
-            );
-          }}
-          renderInput={(params) => (
-            <TextField
-              key={params.inputProps.id}
-              {...params}
-              id="categories"
-              variant="standard"
-              // label="Multiple values"
-              placeholder="Categories"
+      <div className="flex justify-end">
+        <DeleteDialog
+          route="/backoffice/books"
+          callback={() => deleteBook(book.id)}
+        />
+      </div>
+      <Card className="p-4">
+        <form action={onSubmit} className="space-y-4">
+          <div>
+            <Label>Select Categories</Label>
+            <Autocomplete
+              multiple
+              id="tags-standard"
+              options={categories}
+              defaultValue={categories.filter((item) =>
+                connectedCategoryIds.includes(item.id)
+              )}
+              getOptionLabel={(option) => option.name}
+              onChange={(option, value) =>
+                setBookInfo({
+                  ...bookInfo,
+                  categories_id: value.map((item) => item.id),
+                })
+              }
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.id}>
+                    {option.name}
+                  </li>
+                );
+              }}
+              renderInput={(params) => (
+                <TextField
+                  key={params.inputProps.id}
+                  {...params}
+                  id="categories"
+                  variant="standard"
+                  // label="Multiple values"
+                  placeholder="Categories"
+                />
+              )}
             />
-          )}
-        />
-      </div>
+          </div>
 
-      <div>
-        <Label>Author</Label>
-        <p>{author.name}</p>
-      </div>
+          <div>
+            <Label>Author</Label>
+            <p>{author.name}</p>
+          </div>
 
-      <div>
-        <Label>Title</Label>
-        <Input
-          placeholder="Title"
-          defaultValue={book.title}
-          type="text"
-          onChange={(e) => setBookInfo({ ...bookInfo, title: e.target.value })}
-        />
-      </div>
-      <div>
-        <Label>Price</Label>
-        <Input
-        defaultValue={book.price as string}
-          placeholder="Price"
-          type="text"
-          onChange={(e) => setBookInfo({ ...bookInfo, price: e.target.value })}
-        />
-      </div>
-      <div>
-        <Label>Is Premium</Label>
-        <Switch
-        defaultChecked={book.is_premium}
-        //   checked={book.is_premium}
-          onCheckedChange={() => setBookInfo({...bookInfo,is_premium: !book.is_premium})}
-        />
-      </div>
-     
-      <Button type="submit">Update</Button>
-    </form>
-    </Card>
+          <div>
+            <Label>Title</Label>
+            <Input
+              placeholder="Title"
+              defaultValue={book.title}
+              type="text"
+              onChange={(e) =>
+                setBookInfo({ ...bookInfo, title: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <Label>Price</Label>
+            <Input
+              defaultValue={book.price as string}
+              placeholder="Price"
+              type="text"
+              onChange={(e) =>
+                setBookInfo({ ...bookInfo, price: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <Label>Is Premium</Label>
+            <Switch
+              defaultChecked={book.is_premium}
+              //   checked={book.is_premium}
+              onCheckedChange={() =>
+                setBookInfo({ ...bookInfo, is_premium: !book.is_premium })
+              }
+            />
+          </div>
+
+          <Button type="submit">Update</Button>
+        </form>
+      </Card>
     </div>
   );
 }
