@@ -22,7 +22,7 @@ export default async function page({
         {pages.map((page) => (
           <Card
             key={page.id}
-            className="w-full  md:w-[646px] md:h-[990px] px-4 "
+            className="w-full  md:w-[646px]  px-4 "
           >
             <CardHeader>
               <CardTitle>{page.page_number}</CardTitle>
