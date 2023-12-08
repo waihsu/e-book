@@ -31,7 +31,7 @@ console.log(bookId)
        const data = await  createChapter(chapter)
          if (data === "successful") {
           toast({title: data})
-          router.replace("/backoffice/chapters");
+          router.back()
           router.refresh();
          }else {
           toast({title: data})

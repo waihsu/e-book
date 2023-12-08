@@ -241,6 +241,16 @@ export async function createChapter({
   }
 }
 
+export async function deleteChapter(id: string) {
+ try {
+   await prisma.pages.deleteMany({where: {chapter_id: id}})
+  await prisma.chapters.delete({where: {id}})
+  return "successful"
+ }catch {
+  return "error"
+ }
+}
+
 export async function createPage({
   chapter_id,
   page_number,
