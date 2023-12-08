@@ -2,6 +2,7 @@
 import { createPage } from "@/app/action";
 import FileDropZone from "@/components/FileDropZone";
 import { Button } from "@/components/ui/button";
+import { DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -49,11 +50,13 @@ export default function CreatePageForm({ chapterId, bookId }: { chapterId: strin
           />
         </div>
         <div className=" mb-4">
-        <Label>Select Page jpg file</Label>
-        {/* {bookImg.length ? <Image src={bookImg[0].slice}/>} : ""} */}
-        <FileDropZone onFileSelected={setPageImg} />
-      </div>
-        <Button type="submit">Create Page</Button>
+          <Label>Select Page jpg file</Label>
+          {/* {bookImg.length ? <Image src={bookImg[0].slice}/>} : ""} */}
+          <FileDropZone onFileSelected={setPageImg} />
+        </div>
+        <DialogClose>
+          <Button type="submit">Create Page</Button>
+        </DialogClose>
       </form>
     </div>
   );
