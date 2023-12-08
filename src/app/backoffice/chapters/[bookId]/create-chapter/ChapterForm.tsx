@@ -12,6 +12,7 @@ import { createChapter } from '@/app/action'
 import { useRouter } from 'next/navigation'
 import { toast } from '@/components/ui/use-toast'
 import { Button } from '@/components/ui/button'
+import { DialogClose } from '@/components/ui/dialog'
 
 
 
@@ -31,7 +32,6 @@ console.log(bookId)
        const data = await  createChapter(chapter)
          if (data === "successful") {
           toast({title: data})
-          router.replace("/backoffice/books");
           router.refresh();
          }else {
           toast({title: data})
@@ -42,11 +42,13 @@ console.log(bookId)
   return (
     <div>
       <form action={onSubmit}>
-        <div className=' mb-2'>
+        <div className=" mb-2">
           <Label>Title</Label>
-          <Input  placeholder="Title"
-          type="text"
-          onChange={(e) => setChapter({ ...chapter, title: e.target.value })} />
+          <Input
+            placeholder="Title"
+            type="text"
+            onChange={(e) => setChapter({ ...chapter, title: e.target.value })}
+          />
         </div>
         {/* <div>
           <Label>Body</Label>
@@ -54,8 +56,10 @@ console.log(bookId)
           
           onChange={(e) => setChapter({ ...chapter, body: e.target.value })} />
         </div> */}
-        <Button type='submit' >Submit</Button>
+        <DialogClose>
+          <Button type="submit">Submit</Button>
+        </DialogClose>
       </form>
     </div>
-  )
+  );
 }

@@ -13,7 +13,6 @@ export default async function BackofficeLayout({children}: {children: React.Reac
   const session = await getServerSession(authOptions)
   const user = session?.user as User
   const role = user?.role
-  console.log(session)
   if (role !== "ADMIN") {
     redirect("/")
   }

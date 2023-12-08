@@ -1,10 +1,13 @@
 import BackofficeLayout from "@/components/BackofficeLayout";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { prisma } from "@/libs/prisma";
 import Image from "next/image";
 import Link from "next/link";
 
 import React from "react";
+import ChapterForm from "./create-chapter/ChapterForm";
 
 export default async function page({ params }: { params: { bookId: string } }) {
   const { bookId } = params;
@@ -15,8 +18,18 @@ export default async function page({ params }: { params: { bookId: string } }) {
   return (
     <BackofficeLayout
       title="Chapters"
-      link={`/backoffice/chapters/${bookId}/create-chapter`}
-      button="create chapter">
+      link={`/backoffice/chapters`}
+      button="Back">
+        <div>
+          <Dialog>
+            <DialogTrigger>
+              <Button>Create Chapter</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <ChapterForm bookId={bookId} />
+            </DialogContent>
+          </Dialog>
+        </div>
       <div className=" mb-10">
         <Card className=" relative h-96">
           <Image
