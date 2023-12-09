@@ -11,6 +11,7 @@ import SessionProvider from './provider/NextAuthSessionProvider';
 import { getServerSession } from 'next-auth';
 import {  Analytics } from '@vercel/analytics/react'
 import { Toaster } from "@/components/ui/toaster";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 
 export const fontSans = FontSans({
@@ -40,6 +41,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               <div className="px-4 mt-8 md:px-10 min-h-screen">
                 {children}
                 <Analytics />
+                <SpeedInsights />
               </div>
               <Toaster />
               <Footer />

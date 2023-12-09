@@ -21,7 +21,7 @@ export default async function Navbar() {
     <div>
       <div className="flex justify-between items-center py-6 px-10 ">
         <Link href={"/"}>
-        <h4 className="text-2xl hover:scale-110 transition delay-150 duration-500">Library</h4></Link>
+        <h4 className="text-2xl font-extrabold hover:scale-110 hover:text-emerald-400 transition delay-150 duration-500">Library</h4></Link>
         <NaveMenuItems />
         <div className=" flex gap-2">
           <ThemeIcon />
